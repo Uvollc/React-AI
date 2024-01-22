@@ -63,6 +63,7 @@ function GetStarted(props) {
         device_token: deviceToken
       }
     }
+    gtag_report_conversion();
     try {
       const response = await apiRequests(endPoint, 'post', userData);
       if (response.status === 200) {
