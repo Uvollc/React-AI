@@ -40,7 +40,10 @@ function PaymentInformation(props) {
           console.log('err', err)
         })
       }
-      checkoutSession();
+      if(show && (localStorage.getItem('checkout') == undefined || localStorage.getItem('checkout') == false )) {
+        localStorage.setItem('checkout', true);
+        checkoutSession();
+      }
     }, []);
   
     return (

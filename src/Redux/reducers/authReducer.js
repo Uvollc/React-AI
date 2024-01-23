@@ -47,6 +47,7 @@ const authReducer = (state = initialState, action) => {
         getChatHistory: true
       };
     case RESET_STATE:
+      localStorage.removeItem('checkout');
       return {
         ...state,
         getChatHistory: false,

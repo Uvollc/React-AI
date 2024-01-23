@@ -41,6 +41,7 @@ function Chatbot() {
 
   useEffect(() => {
     setToken(deviceToken);
+    localStorage.removeItem('checkout');
   }, [])
   
   useEffect(() => {
