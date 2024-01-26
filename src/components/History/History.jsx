@@ -36,7 +36,7 @@ function History(props) {
   }, [])
 
   useEffect(() => {
-    if(userToken != null && getChatHistory) {
+    if(userToken != null) {
       getAllChats();
     }
   }, [getChatHistory])
