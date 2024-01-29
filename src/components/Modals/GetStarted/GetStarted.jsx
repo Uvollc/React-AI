@@ -24,7 +24,7 @@ function GetStarted(props) {
   const [password, setPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [showError, setShowError] = useState(props.showError || false);
-  const errorString = 'Account required to continue to continue diagnosis';
+  const errorString = 'Account required to continue diagnosis';
 
   const handleClose = () => setShowSignUp(false);
   const handleShow = () => {
@@ -78,12 +78,10 @@ function GetStarted(props) {
 
   return (
     <>
-      {props.source == 'home' ? (
-        <Button variant="primary mt-lg-0" onClick={handleShow}>Get Started</Button>
-      ) : props.source == 'footer' ? (
+      {props.source == 'footer' ? (
         <Button variant="primary mt-lg-0" onClick={handleShow}>Sign Up Now</Button>
       ) : (
-        !props.showRegister && <Button variant="primary my-lg-0 my-4 mx-3 mx-lg-0" onClick={handleShow}>Get Started Free</Button>
+        !props.showRegister && <Button variant="primary my-lg-0 my-4 mx-3 mx-lg-0" onClick={handleShow}>Get Started</Button>
       )}
       <Modal
         show={showSignUp}

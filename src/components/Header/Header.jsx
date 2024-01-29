@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Nav, Navbar, Dropdown } from 'react-bootstrap';
+import { Nav, Navbar, Dropdown, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import store from '../../Redux/store';
@@ -106,7 +106,7 @@ function Header() {
             </Nav>) : (
             <Nav>
               <Login />
-              <GetStarted />
+              <Button variant="primary my-lg-0 my-4 mx-3 mx-lg-0" onClick={() => navigate('/pricing')}>Get Started</Button>
             </Nav>
           )}
           </Navbar.Collapse>
