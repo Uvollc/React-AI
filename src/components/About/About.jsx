@@ -22,7 +22,7 @@ function About() {
               is here to help using the latest in specialized AI technology. 
             </h5>
             <div className="bnt-section mt-5">
-              <Button variant="outline-primary me-1 small-btn" onClick={() => navigate('/chat')}>Try Demo</Button>{' '}
+              <Button variant="outline-primary me-1 small-btn" onClick={() => navigate('/chat')}>Ask UVO Now</Button>{' '}
               <Button variant="primary my-lg-0 my-4 mx-3 mx-lg-0" onClick={() => navigate('/pricing')}>Get Started</Button>
             </div>
           </div>
