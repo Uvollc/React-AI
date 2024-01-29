@@ -24,7 +24,7 @@ function Home() {
             <h5>No waiting for your doctor's office or guessing on the internet.</h5>
             <div className="bnt-section mt-5">
               <Button variant="outline-primary me-1 small-btn" onClick={() => navigate('/chat')}> Ask Uvo now</Button>{' '}
-              <GetStarted source="home" />
+              <Button variant="primary my-lg-0 my-4 mx-3 mx-lg-0" onClick={() => navigate('/pricing')}>Get Started</Button>
             </div>
           </div>
           <div className="AIchatbot-img">

@@ -63,7 +63,7 @@ function Messages(props) {
         <div className='chat-title d-flex justify-content-between align-items-center'>
           <div>
             <img src={chattitle} alt="chat Title" className="me-4"/>
-            Chat Title
+            UVO Doc
           </div>
           <div className='d-flex'>
             {userToken && <p className='chat-share me-2' onClick={createChat}>

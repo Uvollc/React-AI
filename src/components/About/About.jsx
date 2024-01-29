@@ -2,7 +2,6 @@ import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import AboutCard from '../../assets/images/about-card.png';
-import GetStarted from '../Modals/GetStarted/GetStarted';
 import './About.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,7 +23,7 @@ function About() {
             </h5>
             <div className="bnt-section mt-5">
               <Button variant="outline-primary me-1 small-btn" onClick={() => navigate('/chat')}>Try Demo</Button>{' '}
-              <GetStarted source="home" />
+              <Button variant="primary my-lg-0 my-4 mx-3 mx-lg-0" onClick={() => navigate('/pricing')}>Get Started</Button>
             </div>
           </div>
         </div>

@@ -77,12 +77,10 @@ function GetStarted(props) {
 
   return (
     <>
-      {props.source == 'home' ? (
-        <Button variant="primary mt-lg-0" onClick={handleShow}>Get Started</Button>
-      ) : props.source == 'footer' ? (
+      {props.source == 'footer' ? (
         <Button variant="primary mt-lg-0" onClick={handleShow}>Sign Up Now</Button>
       ) : (
-        !props.showRegister && <Button variant="primary my-lg-0 my-4 mx-3 mx-lg-0" onClick={handleShow}>Get Started Free</Button>
+        !props.showRegister && <Button variant="primary my-lg-0 my-4 mx-3 mx-lg-0" onClick={handleShow}>Get Started</Button>
       )}
       <Modal
         show={showSignUp}
