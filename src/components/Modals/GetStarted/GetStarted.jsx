@@ -24,7 +24,7 @@ function GetStarted(props) {
   const [password, setPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [showError, setShowError] = useState(props.showError || false);
-  const errorString = 'Account required to continue to continue diagnosis';
+  const errorString = 'Account required to continue diagnosis';
 
   const handleClose = () => setShowSignUp(false);
   const handleShow = () => {

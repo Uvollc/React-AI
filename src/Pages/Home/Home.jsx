@@ -23,7 +23,7 @@ function Home() {
             </h2>
             <h5>No waiting for your doctor's office or guessing on the internet.</h5>
             <div className="bnt-section mt-5">
-              <Button variant="outline-primary me-1 small-btn" onClick={() => navigate('/chat')}>Try Demo</Button>{' '}
+              <Button variant="outline-primary me-1 small-btn" onClick={() => navigate('/chat')}> Ask Uvo now</Button>{' '}
               <GetStarted source="home" />
             </div>
           </div>
