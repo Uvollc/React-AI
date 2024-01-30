@@ -8,7 +8,7 @@ import PaymentInformation from '../PaymentInformation/PaymentInformation';
 import Login from '../Login/Login';
 import { apiRequests } from '../../../Common/apiRequests';
 import { setSignUp } from '../../../Redux/actions/authActions';
-import { deviceToken, ip } from '../../../Common/deviceToken';
+import { deviceToken } from '../../../Common/deviceToken';
 import { Link, useNavigate } from 'react-router-dom';
 
 function GetStarted(props) {
@@ -60,8 +60,7 @@ function GetStarted(props) {
         email: data.get('email'),
         password: data.get('password'),
         password_confirmation: data.get('confirm_password'),
-        device_token: deviceToken,
-        ip_address: ip
+        device_token: deviceToken
       }
     }
     try {

@@ -8,7 +8,7 @@ import './Login.scss';
 import { apiRequests } from '../../../Common/apiRequests';
 import { setToken } from '../../../Redux/actions/authActions';
 import GetStarted from '../GetStarted/GetStarted';
-import { deviceToken, ip } from '../../../Common/deviceToken';
+import { deviceToken } from '../../../Common/deviceToken';
 
 function Login(props) {
   const dispatch = useDispatch();
@@ -38,8 +38,7 @@ function Login(props) {
       user : {
         email: data.get('email'),
         password: data.get('password'),
-        device_token: deviceToken,
-        ip_address: ip
+        device_token: deviceToken
       }
     }
     await apiRequests(endPoint, 'post', userData)

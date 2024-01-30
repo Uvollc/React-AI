@@ -1,16 +1,12 @@
-import axios from 'axios';
 import { ClientJS } from 'clientjs';
+import { Cookies, useCookies } from 'react-cookie';
 
-const client = new ClientJS();
-const fingerprint = client.getFingerprint();
-let ip;
+// const [cookies, setCookies] = useCookies();
+// console.log('coookiesss', cookies['deviceToken']);
+const cookies = new Cookies();
+const deviceToken = cookies.cookies.deviceToken;
+// console.log('line 7', cookies.cookies.deviceToken);
+// const client = new ClientJS();
+// const fingerprint = client.getFingerprint();
 
-const getIP = async () => {
-  const res = await axios.get('https://api.ipify.org/?format=json');
-  ip = res.data.ip;
-}
-const ipAddress = ip;
-getIP();
-
-export { fingerprint as deviceToken };
-export { ipAddress as ip };
+export { deviceToken as deviceToken };
