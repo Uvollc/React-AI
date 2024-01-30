@@ -3,7 +3,7 @@ import { Row, Col, Button, Tab, Tabs, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { openai } from '../../Common/openai';
-import { deviceToken } from '../../Common/deviceToken';
+import { deviceToken, ip } from '../../Common/deviceToken';
 import Notiflix from 'notiflix';
 
 import info from '../../assets/images/info-icon.svg';
@@ -113,6 +113,7 @@ function Chatbot() {
     const endPoint = userToken ? `user/chats/${chatId}` : 'public_chats';
     const messageData = {
       device_token: deviceToken,
+      ip_address: ip,
       chat: {
           "chat_id": chatId,
           "message": message
