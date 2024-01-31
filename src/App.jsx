@@ -6,9 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Notiflix from 'notiflix';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 function App() {
   const location = useLocation();
+  const [cookies, setCookies] = useCookies(["deviceToken"]);
+  const current = new Date();
+  const nextYear = new Date();
+  nextYear.setFullYear(current.getFullYear() + 1);
 
   useEffect(() => {
     Notiflix.Notify.init({
@@ -18,6 +23,9 @@ function App() {
       timeout: 6000,
       closeButton: true
     });
+    if(cookies['deviceToken'] == undefined) {
+      setCookies('deviceToken', current, { path: '/', expires: nextYear});
+    }
   })
 
   useLayoutEffect(() => {
@@ -26,11 +34,13 @@ function App() {
 
   return (
     <>
-    <Provider store={store}>
-      <Header />
-      <Outlet />
-      <Footer />
-    </Provider>
+    <CookiesProvider>
+      <Provider store={store}>
+        <Header />
+        <Outlet />
+        <Footer />
+      </Provider>
+    </CookiesProvider>
     </>
   )
 }
