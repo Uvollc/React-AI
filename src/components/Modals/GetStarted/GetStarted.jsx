@@ -8,8 +8,8 @@ import PaymentInformation from '../PaymentInformation/PaymentInformation';
 import Login from '../Login/Login';
 import { apiRequests } from '../../../Common/apiRequests';
 import { setSignUp } from '../../../Redux/actions/authActions';
-import { deviceToken } from '../../../Common/deviceToken';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 function GetStarted(props) {
   const dispatch = useDispatch();
@@ -24,6 +24,8 @@ function GetStarted(props) {
   const [password, setPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [showError, setShowError] = useState(props.showError || false);
+  const [cookies, setCookies] = useCookies();
+  const deviceToken = cookies.deviceToken;
   const errorString = 'Account required to continue diagnosis';
 
   const handleClose = () => setShowSignUp(false);

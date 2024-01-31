@@ -3,7 +3,6 @@ import { Row, Col, Button, Tab, Tabs, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { openai } from '../../Common/openai';
-import { deviceToken } from '../../Common/deviceToken';
 import Notiflix from 'notiflix';
 
 import info from '../../assets/images/info-icon.svg';
@@ -18,6 +17,7 @@ import './Chatbot.scss';
 import PaymentInformation from '../../components/Modals/PaymentInformation/PaymentInformation';
 import { getChatHistory, updateUser } from '../../Redux/actions/authActions';
 import PremiumPlan from '../../components/Modals/PremiumPlan/PremiumPlan';
+import { useCookies } from 'react-cookie';
 
 function Chatbot() {
   const dispatch = useDispatch();
@@ -32,6 +32,8 @@ function Chatbot() {
   const [showTyping, setShowTyping] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showPremiumPlan, setShowPremiumPlan] = useState(false);
+  const [cookies, setCookies] = useCookies();
+  const deviceToken = cookies.deviceToken;
 
   useEffect(() => {
     if(showPayment) {

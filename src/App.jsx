@@ -24,7 +24,7 @@ function App() {
       closeButton: true
     });
     if(cookies['deviceToken'] == undefined) {
-      setCookies('deviceToken', current, { path: '/', expires: nextYear});
+      setCookies('deviceToken', Date.now(), { path: '/', expires: nextYear});
     }
   })
 

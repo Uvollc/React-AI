@@ -8,7 +8,7 @@ import './Login.scss';
 import { apiRequests } from '../../../Common/apiRequests';
 import { setToken } from '../../../Redux/actions/authActions';
 import GetStarted from '../GetStarted/GetStarted';
-import { deviceToken } from '../../../Common/deviceToken';
+import { useCookies } from 'react-cookie';
 
 function Login(props) {
   const dispatch = useDispatch();
@@ -18,6 +18,8 @@ function Login(props) {
   const [showRegister, setShowRegister] = useState(false);
   const form  = useRef(null);
   const [validated, setValidated] = useState(false);
+  const [cookies, setCookies] = useCookies();
+  const deviceToken = cookies.deviceToken;
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
