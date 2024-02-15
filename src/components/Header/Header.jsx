@@ -13,13 +13,17 @@ import bell from '../../assets/images/bell-icon.svg';
 import { apiRequests } from '../../Common/apiRequests';
 import { logout } from '../../Redux/actions/authActions';
 
-
 function Header() {
   // const state = store.getState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showChat, setShowChat] = useState('false');
   const userToken = useSelector(state => state.auth.token);
   const user = useSelector(state => state.auth.user);
+
+  useEffect(() => {
+    getPublicAccess();
+  }, [])
 
   const handleLogout = async () => {
     const endPoint = `logout`;
@@ -32,6 +36,17 @@ function Header() {
     .catch((err) => {
       Notiflix.Notify.failure(err.response.data);
     })
+  }
+
+  const getPublicAccess = async () => {
+    const endPoint = `public_access`;
+    await apiRequests(endPoint, 'get')
+    .then((response) => {
+      setShowChat(response.data.data.chat_access);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   const handleSettings = () => {
@@ -76,7 +91,7 @@ function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto center-nav">
               <NavLink to="/pricing">Pricing</NavLink>
-              <NavLink to="/chat">Chatbot</NavLink>
+              { showChat != 'false' && <NavLink to="/chat" state={{ showChat: showChat }}>Chatbot</NavLink>}
             </Nav>
             {userToken ? (
             <Nav>
