@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Nav, Navbar, Dropdown, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,18 +12,27 @@ import userImg from '../../assets/images/userImg.png';
 import bell from '../../assets/images/bell-icon.svg';
 import { apiRequests } from '../../Common/apiRequests';
 import { logout } from '../../Redux/actions/authActions';
+import { getPublicAccess } from '../../Common/publicAccess';
 
 function Header() {
   // const state = store.getState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [showChat, setShowChat] = useState('false');
+  const [showRegister, setShowRegister] = useState(false);
   const userToken = useSelector(state => state.auth.token);
   const user = useSelector(state => state.auth.user);
 
   useEffect(() => {
-    getPublicAccess();
-  }, [])
+    getPublicAccess()
+      .then(res => {
+        setShowChat(res.data.chat_access);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }, []);
 
   const handleLogout = async () => {
     const endPoint = `logout`;
@@ -38,22 +47,16 @@ function Header() {
     })
   }
 
-  const getPublicAccess = async () => {
-    const endPoint = `public_access`;
-    await apiRequests(endPoint, 'get')
-    .then((response) => {
-      setShowChat(response.data.data.chat_access);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-
   const handleSettings = () => {
     navigate('/settings/general');
   }
 
+  const handleChat = () => {
+    showChat === 'true' ? navigate('/chat', {state: {showChat: showChat}}) : setShowRegister(true);
+  }
+
   return (
+    <>
     <Navbar expand="lg" className='topHeader mb-0'>
       <div className="container-lg">
         <div className="logo">
@@ -91,7 +94,7 @@ function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto center-nav">
               <NavLink to="/pricing">Pricing</NavLink>
-              { showChat != 'false' && <NavLink to="/chat" state={{ showChat: showChat }}>Chatbot</NavLink>}
+              <span className={location.pathname == '/chat' ? 'active' : ''} onClick={handleChat}>Chatbot</span>
             </Nav>
             {userToken ? (
             <Nav>
@@ -128,6 +131,8 @@ function Header() {
         </div>
       </div>
     </Navbar>
+    {showRegister && <GetStarted showRegister={showRegister} />}
+    </>
   )
 }
 
