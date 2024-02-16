@@ -18,13 +18,13 @@ function Pricing() {
   const user = useSelector(state => state.auth.user);
   const showPayment = useSelector(state => state.auth.showPayment);
   const [show, setShow] = useState(false);
-  const [showSignUp, setshowSignUp] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
   const [showChat, setShowChat] = useState('false');
 
   useEffect(() => {
     if(userToken) {
       setShowChat('true');
-      setshowSignUp(false);
+      setShowRegister(false);
     } else {
       getPublicAccess()
       .then(res => {
@@ -43,17 +43,17 @@ function Pricing() {
   }, [showPayment]);
 
   const handleChat = () => {
-    showChat == 'true' ? navigate('/chat', {state: {showChat: showChat}}) : setshowSignUp(true);
+    showChat == 'true' ? navigate('/chat', {state: {showChat: showChat}}) : setShowRegister(true);
   }
 
   const upgradeToPremium = () => {
     if(user?.payment_status == 'pending' && userToken != null) {
       setShow(true);
-      setshowSignUp(false);
+      setShowRegister(false);
     }
     if (userToken == null || userToken == undefined) {
       setShow(false);
-      setshowSignUp(true);
+      setShowRegister(true);
     }
     if(user?.payment_status == 'paid') {
       Notiflix.Notify.success('You are already subscribed to our premium plan.');
@@ -146,7 +146,7 @@ function Pricing() {
       <WhatUsersSay />
       <Questions />
       {show && userToken && <PaymentInformation showModal={show} />}
-      {showSignUp && <GetStarted showRegister={showSignUp} />}
+      {showRegister && <GetStarted showRegister={showRegister} setShowRegister={setShowRegister} />}
     </>
   )
 }
