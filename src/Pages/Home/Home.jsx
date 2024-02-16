@@ -11,21 +11,28 @@ import './Home.scss';
 import GetStarted from '../../components/Modals/GetStarted/GetStarted';
 import { useNavigate } from 'react-router-dom';
 import { getPublicAccess } from '../../Common/publicAccess';
+import { useSelector } from 'react-redux';
 
 function Home() {
   const navigate = useNavigate();
+  const userToken = useSelector(state => state.auth.token);
   const [showChat, setShowChat] = useState('false');
   const [showRegister, setShowRegister] = useState(false);
 
   useEffect(() => {
-    getPublicAccess()
+    if(userToken) {
+      setShowChat('true');
+      setShowRegister(false);
+    } else {
+      getPublicAccess()
       .then(res => {
         setShowChat(res.data.chat_access);
       })
       .catch(err => {
         console.error(err);
       });
-  }, []);
+    }
+  }, [userToken]);
 
   const handleChat = () => {
     showChat == 'true' ? navigate('/chat', {state: {showChat: showChat}}) : setShowRegister(true);

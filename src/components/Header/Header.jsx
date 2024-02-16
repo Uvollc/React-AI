@@ -25,14 +25,19 @@ function Header() {
   const user = useSelector(state => state.auth.user);
 
   useEffect(() => {
-    getPublicAccess()
+    if(userToken) {
+      setShowChat('true');
+      setShowRegister(false);
+    } else {
+      getPublicAccess()
       .then(res => {
         setShowChat(res.data.chat_access);
       })
       .catch(err => {
         console.error(err);
       });
-  }, []);
+    }
+  }, [userToken]);
 
   const handleLogout = async () => {
     const endPoint = `logout`;
