@@ -37,7 +37,7 @@ function Chatbot() {
   const [cookies, setCookies] = useCookies();
   const deviceToken = cookies.deviceToken;
 
-  if(location.state == null || location.state == undefined || location.state.showChat == 'false') {
+  if(location.state?.showChat == 'false') {
     navigate('/');
   }
 
@@ -54,7 +54,7 @@ function Chatbot() {
   
   useEffect(() => {
     if(userToken == null) {
-      if(token != null && token != undefined && location.state.showChat != 'false') {
+      if(token != null && token != undefined && location.state?.showChat != 'false') {
         getChat();
       }
     }

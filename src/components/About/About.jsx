@@ -37,7 +37,7 @@ function About(props) {
         </div>
       </div>
     </div>
-    {showRegister && <GetStarted showRegister={showRegister} />}
+    {showRegister && <GetStarted showRegister={showRegister} setShowRegister={setShowRegister} />}
     </>
   )
 }

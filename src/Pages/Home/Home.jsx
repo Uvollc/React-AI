@@ -62,7 +62,7 @@ function Home() {
       <HowItWorks />
       <WhatUsersSay />
       <Questions />
-      {showRegister && <GetStarted showRegister={showRegister} />}
+      {showRegister && <GetStarted showRegister={showRegister} setShowRegister={setShowRegister} />}
     </>
   )
 }

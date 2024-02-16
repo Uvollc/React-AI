@@ -136,7 +136,7 @@ function Header() {
         </div>
       </div>
     </Navbar>
-    {showRegister && <GetStarted showRegister={showRegister} />}
+    {showRegister && <GetStarted showRegister={showRegister} setShowRegister={setShowRegister} />}
     </>
   )
 }
