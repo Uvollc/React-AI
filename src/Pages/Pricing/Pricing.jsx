@@ -24,7 +24,7 @@ function Pricing() {
   useEffect(() => {
     if(userToken) {
       setShowChat('true');
-      setShowRegister(false);
+      // setShowRegister(false);
     } else {
       getPublicAccess()
       .then(res => {
