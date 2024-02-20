@@ -145,7 +145,7 @@ function Pricing() {
       </Container>
       <WhatUsersSay />
       <Questions />
-      {show && userToken && <PaymentInformation showModal={show} />}
+      {show && userToken && <PaymentInformation showModal={show} setShow={setShow} />}
       {showRegister && <GetStarted showRegister={showRegister} setShowRegister={setShowRegister} />}
     </>
   )

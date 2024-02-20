@@ -18,6 +18,7 @@ function PaymentInformation(props) {
 
   const handleClose = () => {
     setShow(false);
+    props.setShow(false);
     const backdrops = document.querySelectorAll('.modal-backdrop');
     backdrops.forEach(backdrop => {
       document.body.style.overflow = "auto";
