@@ -11,7 +11,7 @@
     width: calc(100% - 6.375rem);
   }
   .navbar-nav {
-    a {
+    a, span {
       font-weight: 600;
       color: var(--gray200);
       display: flex;
@@ -19,6 +19,7 @@
       margin: 0 1.25rem;
       text-decoration: none;
       padding: .6875rem 0 .6875rem 0;
+      cursor: pointer;
       &:first-child {
         margin-left: 0;
       }

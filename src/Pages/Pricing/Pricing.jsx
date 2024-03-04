@@ -10,6 +10,7 @@ import PaymentInformation from '../../components/Modals/PaymentInformation/Payme
 import { useSelector } from 'react-redux';
 import GetStarted from '../../components/Modals/GetStarted/GetStarted';
 import Notiflix from 'notiflix';
+import { getPublicAccess } from '../../Common/publicAccess';
 
 function Pricing() {
   const navigate = useNavigate();
@@ -17,7 +18,23 @@ function Pricing() {
   const user = useSelector(state => state.auth.user);
   const showPayment = useSelector(state => state.auth.showPayment);
   const [show, setShow] = useState(false);
-  const [showSignUp, setshowSignUp] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showChat, setShowChat] = useState('false');
+
+  useEffect(() => {
+    if(userToken) {
+      setShowChat('true');
+      // setShowRegister(false);
+    } else {
+      getPublicAccess()
+      .then(res => {
+        setShowChat(res.data.chat_access);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }
+  }, [userToken]);
 
   useEffect(() => {
     if(showPayment) {
@@ -25,14 +42,18 @@ function Pricing() {
     }
   }, [showPayment]);
 
+  const handleChat = () => {
+    showChat == 'true' ? navigate('/chat', {state: {showChat: showChat}}) : setShowRegister(true);
+  }
+
   const upgradeToPremium = () => {
     if(user?.payment_status == 'pending' && userToken != null) {
       setShow(true);
-      setshowSignUp(false);
+      setShowRegister(false);
     }
     if (userToken == null || userToken == undefined) {
       setShow(false);
-      setshowSignUp(true);
+      setShowRegister(true);
     }
     if(user?.payment_status == 'paid') {
       Notiflix.Notify.success('You are already subscribed to our premium plan.');
@@ -69,7 +90,7 @@ function Pricing() {
                     </ul>
                   </div>
                 </div>
-                <Button className="w-100 mt-3" disabled={user?.payment_status == 'pending' && userToken != null} onClick={() => navigate('/chat')}>{`${user?.payment_status == 'pending' && userToken != null ? 'Current Plan' : 'Get Started for Free'} `}</Button>
+                <Button className="w-100 mt-3" disabled={user?.payment_status == 'pending' && userToken != null} onClick={handleChat}>{`${user?.payment_status == 'pending' && userToken != null ? 'Current Plan' : 'Get Started for Free'} `}</Button>
               </div>
             </CardBody>
           </Card>
@@ -124,8 +145,8 @@ function Pricing() {
       </Container>
       <WhatUsersSay />
       <Questions />
-      {show && userToken && <PaymentInformation showModal={show} />}
-      {showSignUp && <GetStarted showRegister={showSignUp} />}
+      {show && userToken && <PaymentInformation showModal={show} setShow={setShow} />}
+      {showRegister && <GetStarted showRegister={showRegister} setShowRegister={setShowRegister} />}
     </>
   )
 }

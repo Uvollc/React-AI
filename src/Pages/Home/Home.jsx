@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 
 import AIchatbot from '../../assets/images/banner-img.png';
@@ -10,9 +10,34 @@ import Questions from '../../components/Questions/Questions';
 import './Home.scss';
 import GetStarted from '../../components/Modals/GetStarted/GetStarted';
 import { useNavigate } from 'react-router-dom';
+import { getPublicAccess } from '../../Common/publicAccess';
+import { useSelector } from 'react-redux';
 
 function Home() {
   const navigate = useNavigate();
+  const userToken = useSelector(state => state.auth.token);
+  const [showChat, setShowChat] = useState('false');
+  const [showRegister, setShowRegister] = useState(false);
+
+  useEffect(() => {
+    if(userToken) {
+      setShowChat('true');
+      setShowRegister(false);
+    } else {
+      getPublicAccess()
+      .then(res => {
+        setShowChat(res.data.chat_access);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }
+  }, [userToken]);
+
+  const handleChat = () => {
+    showChat == 'true' ? navigate('/chat', {state: {showChat: showChat}}) : setShowRegister(true);
+  }
+
   return (
     <>
       <div className="main-banner">
@@ -23,7 +48,7 @@ function Home() {
             </h2>
             <h5>No waiting for your doctor's office or guessing on the internet.</h5>
             <div className="bnt-section mt-5">
-              <Button variant="outline-primary me-1 small-btn" onClick={() => navigate('/chat')}> Ask UVO Now</Button>{' '}
+              <Button variant="outline-primary me-1 small-btn" onClick={handleChat}> Ask UVO Now</Button>{' '}
               <Button variant="primary my-lg-0 my-4 mx-3 mx-lg-0" onClick={() => navigate('/pricing')}>Get Started</Button>
             </div>
           </div>
@@ -32,11 +57,12 @@ function Home() {
           </div>
         </div>
       </div>
-      <About />
+      <About showChat={showChat} />
       <KeyFeature />
       <HowItWorks />
       <WhatUsersSay />
       <Questions />
+      {showRegister && <GetStarted showRegister={showRegister} setShowRegister={setShowRegister} />}
     </>
   )
 }

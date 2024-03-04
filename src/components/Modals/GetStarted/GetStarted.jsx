@@ -28,7 +28,12 @@ function GetStarted(props) {
   const deviceToken = cookies.deviceToken;
   const errorString = 'Account required to continue diagnosis';
 
-  const handleClose = () => setShowSignUp(false);
+  const handleClose = () => {
+    setShowSignUp(false);
+    if(props.setShowRegister) {
+      props.setShowRegister(false);
+    }
+  }
   const handleShow = () => {
     if(user) {
       navigate('/chat');

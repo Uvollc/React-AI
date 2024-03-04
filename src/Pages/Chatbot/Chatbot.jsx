@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Row, Col, Button, Tab, Tabs, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { openai } from '../../Common/openai';
 import Notiflix from 'notiflix';
@@ -22,6 +22,8 @@ import { useCookies } from 'react-cookie';
 function Chatbot() {
   const dispatch = useDispatch();
   const form  = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const userToken = useSelector(state => state.auth.token);
   const showPayment = useSelector(state => state.auth.showPayment);
@@ -34,6 +36,10 @@ function Chatbot() {
   const [showPremiumPlan, setShowPremiumPlan] = useState(false);
   const [cookies, setCookies] = useCookies();
   const deviceToken = cookies.deviceToken;
+
+  if(location.state?.showChat == 'false') {
+    navigate('/');
+  }
 
   useEffect(() => {
     if(showPayment) {
@@ -48,7 +54,7 @@ function Chatbot() {
   
   useEffect(() => {
     if(userToken == null) {
-      if(token != null && token != undefined) {
+      if(token != null && token != undefined && location.state?.showChat != 'false') {
         getChat();
       }
     }
